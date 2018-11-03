@@ -1,0 +1,126 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v3.json",
+  "width": 800,
+  "height": 160,
+  "padding": 5,
+
+  "data": [
+    {
+      "name": "people",
+      "values": [
+        {
+          "label": "pytest",
+          "born": 1245340800000,
+          "died": 1521561600000
+        },
+        {
+          "label": "nosetests2",
+          "born": 1337443200000,
+          "died": 1518883200000
+        },
+        {
+          "label": "nosetests",
+          "born": 1170259200000,
+          "died": 1433174400000
+        }
+      ]
+    },
+    {
+      "name": "events",
+      "format": {"type":"json", "parse":{"when":"date"}},
+      "values": [
+        { "name":"nosetests 1.3.7", "when":"2 Jun 2015" },
+        { "name":"nosetests2 0.7.4", "when":"18 Feb 2018" }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "yscale",
+      "type": "band",
+      "range": [0, {"signal": "height"}],
+      "domain": {"data": "people", "field": "label"}
+    },
+    {
+      "name": "xscale",
+      "type": "time",
+      "range": "width",
+      "round": true,
+      "domain": {"data": "people", "fields": ["born", "died"]}
+    }
+  ],
+
+  "axes": [
+    {"orient": "bottom", "scale": "xscale"}
+  ],
+
+  "marks": [
+    {
+      "type": "text",
+      "from": {"data": "events"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "when"},
+          "y": {"value": -10},
+          "angle": {"value": -25},
+          "fill": {"value": "#000"},
+          "text": {"field": "name"},
+          "fontSize": {"value": 20}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "events"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "when"},
+          "y": {"value": -8},
+          "width": {"value": 1},
+          "height": {"field": {"group": "height"}, "offset": 8},
+          "fill": {"value": "#888"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "people"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "born"},
+          "y": {"scale": "yscale", "field": "label", "offset": -3},
+          "fill": {"value": "#000"},
+          "text": {"field": "label"},
+          "fontSize": {"value": 20}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "people"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "born"},
+          "x2": {"scale": "xscale", "field": "died"},
+          "y": {"scale": "yscale", "field": "label"},
+          "height": {"value": 2},
+          "fill": {"value": "#557"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "people"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "enter"},
+          "x2": {"scale": "xscale", "field": "leave"},
+          "y": {"scale": "yscale", "field": "label", "offset":-1},
+          "height": {"value": 4},
+          "fill": {"value": "#e44"}
+        }
+      }
+    }
+  ]
+}

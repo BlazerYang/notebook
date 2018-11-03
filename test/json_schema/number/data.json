@@ -1,0 +1,12 @@
+{
+    "border": [0, 1, 99, 100],
+    "const": "cons1t",
+    "interesting": "hehe",
+    "interested": "123",
+    "hero": {
+        "Thor": "King of Asthad",
+        "ironman": "King of money",
+        "spiderman": "pooy guy",
+        "Hulk": "stronger, faster, greener"
+    }
+}

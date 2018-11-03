@@ -1,0 +1,37 @@
+{
+    "type": "object",
+    "minProperties": 3,
+    "properties": {
+        "border": {
+            "type": "array",
+            "items": {
+                "type": "number",
+                "maximum": 100,
+                "exclusiveMaximum": false
+            }
+        },
+        "const": {
+            "type":"string",
+            "const": "const"
+        },
+        "hero": {
+            "type": "object",
+            "properties": {
+                "Thor": {
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "man$": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true
+        }
+    },
+    "patternProperties": {
+        "^interest": {
+            "type": "string"
+        }
+    } 
+}
