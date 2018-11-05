@@ -19,7 +19,7 @@
 * `pytest_addhooks(pluginmanager)`  
   在插件注册时调用以添加新的`hook`，其可被其他插件实现用以改变本插件或者同本插件交互
 * `pytest_configure(config)`  
-  在命令行参数解析完成之后，以及插件和conftest文件加载之前调用。用于插件和conftest文件执行一下初始化操作。
+  在命令行参数解析完成之后，以及插件和conftest文件加载之前调用。用于插件和conftest文件执行初始化操作。
 * `pytest_unconfigure(config)`  
   测试进程退出之前调用
 * `pytest_sessionstart(session)`  
@@ -102,12 +102,12 @@ Session相关的报告hook
 * `pytest_enter_pdb(config)`  
   进入pdb之前调用
   
+## hook 声明周期示意图：
 
-## hook生命周期概览
-
+![](./pytest_hook_lifecycle.jpg)
 
 ## 应用示例：
-必须需要收集出错的信息，并在测试完成后存入数据库就可以在`pytest_runtest_logreport`中保存错误信息，并在`pytest_sessionfinish`测试完成后将对应的信息保存至数据库
+比如需要收集用例错误信息，并在测试完成后存入数据库。那么就可以在`pytest_runtest_logreport`中保存错误信息至全局变量，并在`pytest_sessionfinish`中(测试完成后)将对应的信息保存至数据库即可
 
 ## 最后
-通过pytest强大的hook可以定制很多自己需要的功能，通用型的功能还可以制作插件后开源，为社区添砖加瓦
+通过pytest强大的hook可以定制很多自己需要的功能，通用型的功能还可以制作为插件
