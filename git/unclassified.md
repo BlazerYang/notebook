@@ -114,3 +114,9 @@ git remote update origin --prune
 因为`git push`并不会推送tag到远程，需要显式推送
 1. 推送全部tag： `git push [origin] --tag`
 2. 推送单个tag:  `git push [origin] tag_name`
+
+## git 拉代码的时候出现"segmentation fault"后导致代码没有拉取完全？
+window和linux对文件命名规则不一样时，有可能出现linux下提交的代码在window下无法通过校验进而导致出现该问题。  
+解决方案：
+1. linux下删除或重命名该非法命名文件
+2. window下进行浅拉取 `git clone --depth=1 repo_name.git foldername`

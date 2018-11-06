@@ -204,3 +204,6 @@ INSERT INTO tb_field_visibility (
 );
 
 ```
+
+## 如何修改一个表及其中所有字段的编码格式？
+`ALTER TABLE tablename CONVERT TO CHARACTER SET utf8`,

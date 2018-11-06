@@ -4,7 +4,8 @@
 nginx -c /path/to/nginx/conf
 
 ## how to reload conf modification ?
-nginx -s reload
+`nginx -s reload`
+* reload 是平滑重启
 
 ## 经nginx代理过的请求的REMOTE_ADDR中如何带上真实的客户端ip？
 按照以下两步进行操作即可：  
