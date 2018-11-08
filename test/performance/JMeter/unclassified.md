@@ -54,6 +54,9 @@ Java Management eXtension, 为java应用程序植入管理功能的框架
 ${__time(,)}${__threadNum}
 ```
 
+## 如何生成指定长度的随机字符串？
+`${__RandomString(18,abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ)}`, 其中18是生成字符串的长度，第二个参数是生成字符串所需的字符
+
 ## 如何使POST body中的数据的换行符为\r 而非 \n\r
 先添加一个变量`variable`作为换行符
 然后在http下添加一个beanshell前置处理器

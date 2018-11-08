@@ -120,3 +120,5 @@ window和linux对文件命名规则不一样时，有可能出现linux下提交�
 解决方案：
 1. linux下删除或重命名该非法命名文件
 2. window下进行浅拉取 `git clone --depth=1 repo_name.git foldername`
+
+* 如果后续还想拉取完整版本，可以使用`git fetch --unshallow`
