@@ -140,6 +140,9 @@ nohup sh your_script.sh param1 param2 > /dev/null 2>&1 &
 set tabstop=4
 ```
 
+## vi如何临时显示gbk编码文件？
+`:e ++enc=gbk`
+
 ## 如何配置防火墙
 
 ### 如何设置指定本机8361端口只允许特定ip访问
@@ -206,6 +209,10 @@ Swap:           59          0         59
 ```
 可以参考 [Linux 系统缓存机制](https://blog.csdn.net/yangwenbo214/article/details/74061988)
 
+## 如何删除目录下最老的几个文件？
+该命令删掉文件夹在最老的1000个文件
+`ll -rt | grep -v total | awk '{print $9}' | head -n 1000 | xargs rm -f`
+
 ## grep
 ### 查找所有子目录
 `-r`
@@ -223,7 +230,7 @@ Swap:           59          0         59
 先介绍三个指令: `clock`, `hwclock`, `date`
 其中前两个指令可以查看硬件时间，后一个可以查看系统时间
 系统时间可以任意修改以满足op需求。同步时间指令：
-`hwclock --systohc`, 用系统时间来设置硬件时间
+`h**wc**lock --systohc`, 用系统时间来设置硬件时间
 `hwclock --hctosys`, 用硬件时间来设置系统时间
 一般程序读取的是系统时间
 
@@ -275,3 +282,31 @@ DSN是delivery status notification
 包括四种：fail，delay，success，address verification
 
 [Postfix DSN消息](https://blog.csdn.net/propro1314/article/details/39003843)
+
+
+### service postfix start 失败，如何查看错误日志？
+直接`postfix start`可以看到错误信息
+
+### postfix: fatal: parameter inet_interfaces: no local interface found for ::1 如何处理？
+1. open `/etc/postfix/main.cf`
+2. comment out `inet_protocol: all`
+3. add `inet_protocol: ipv4`
+
+
+## 如何清理dnscache？
+service nscd reload
+* windows下：ipconfig /flushdns
+
+
+## root用户如何查看所有人的cron？
+`cut -d: -f1 /etc/passwd|xargs -i sudo crontab -u {} -l`
+* `cut -d: -f1`:
+  > use `:` instead of TAB for field delimiter
+  > select only these fields;  also print any line that contains no delimiter character, unless the -s option is specified
+* xargs -i: 
+  > This option is a synonym for -Ireplace-str if replace-str is specified, and for -I{} otherwise.  This option is deprecated; use -I instead.
+* crontab -u:
+  > Append the name of the user whose crontab is to be tweaked.  If this option is not given, crontab examines "your" crontab, i.e., the crontab of the person executing the command.
+
+## 如何统计文件下下所有文件的数量(包括子文件夹)？
+`ls -lR| grep "^-" | wc -l`

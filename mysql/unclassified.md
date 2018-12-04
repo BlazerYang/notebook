@@ -207,3 +207,18 @@ INSERT INTO tb_field_visibility (
 
 ## 如何修改一个表及其中所有字段的编码格式？
 `ALTER TABLE tablename CONVERT TO CHARACTER SET utf8`,
+
+
+## mysql查询单个字段大小的限额
+`show variables like '%max_allowed_packet%'`
+
+## mysql 查询数据表的大小
+```sql
+SELECT
+	sum(DATA_LENGTH) + sum(INDEX_LENGTH)
+FROM
+	information_schema. TABLES
+WHERE
+	TABLE_SCHEMA = '数据库名'
+AND TABLE_NAME = '数据表名';
+```

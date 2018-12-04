@@ -34,3 +34,8 @@ sudo sed -ir 's/https/http/g' /var/lib/jenkins/hudson.model.UpdateCenter.xml
 4. 此时可以用匿名用户免密进入jenkins，然后在`系统配置`/`全局安全配置`中 `启用安全`，勾选`允许用户注册`
 5. 在`授权策略`中选择`安全矩阵`，然后添加对应的用户，并授予所有的权限，然后保存
 6. 如果添加的用户是之前不存在的用户，那么在jenkins中需要注册，用户名相同即可
+
+
+## 如何升级jenkins？
+1. 下载最新版jenkins.war
+2. 替换war包后启动，请用`ps -ef | grep jenkins`查询原始的启动命令进行启动

@@ -21,3 +21,9 @@ findstr
 
 ## window下如何像linux一样后台启动？
 
+## 脚本启动工作环境
+```bat
+::@echo off
+net stop mysql
+start C:/wamp64/wampmanager.exe  1
+```

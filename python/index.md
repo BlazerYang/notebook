@@ -348,3 +348,9 @@ python -m pip install --index https://pypi.doubanio.com/simple/ --upgrade pip
 from os import listdir
 filelist = listdir('/home/cloud')
 ```
+
+## 如何将dict格式的url参数转化为字符串？
+如何该参数使用`urllib.parse_qs()`函数转化而来，那么可以使用`urlib.urlencode()`直接将其转化回去，因为`parse_qs()`函数默认会对参数进行urldecode
+
+## pip安装指定版本？
+pip install requests=2.3.6

@@ -7,6 +7,9 @@ nginx -c /path/to/nginx/conf
 `nginx -s reload`
 * reload 是平滑重启
 
+## nginx -c conf/path -g "deamon off;"是什么意思？
+`-g`用于动态传递配置参数，nginx默认是后台运行，加上`deamon off;`使得nginx前台运行
+
 ## 经nginx代理过的请求的REMOTE_ADDR中如何带上真实的客户端ip？
 按照以下两步进行操作即可：  
 1. 在代理服务器的配置中加入请求头设置 `proxy_set_header    X-Real-IP    $remote_addr;`

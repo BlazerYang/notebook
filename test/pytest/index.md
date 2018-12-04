@@ -22,4 +22,28 @@ def pytest_sessionfinish(session, exitstatus):
 ```
 
 ## how to distinguish master/worker process in pytest_session_finish?
-if `session.config` has attr `workeroutput`, then it's worker process
+if `session.config` has attr `workeroutput`, then it's worker 
+
+## 如何减少重复的参数
+```python
+import pytest
+
+
+@pytest.mark.parametrize('common_arg1', [0, 1])
+@pytest.mark.parametrize('common_arg2', [2, 3])
+class TestParametrized:
+
+    @pytest.mark.parametrize('a', [0, 1])
+    def test_1(self, common_arg1, common_arg2, a):
+        pass
+
+    @pytest.mark.parametrize('b', [0, 1])
+    def test_2(self, common_arg1, common_arg2, b):
+        pass
+
+    @pytest.mark.parametrize('x', [0, 1])
+    def test_100(self, common_arg1, common_arg2, x):
+        pass
+```
+
+https://stackoverflow.com/questions/51739589/pytest-how-to-share-parametrized-arguments-across-multiple-test-functions
