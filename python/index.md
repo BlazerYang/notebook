@@ -354,3 +354,15 @@ filelist = listdir('/home/cloud')
 
 ## pip安装指定版本？
 pip install requests=2.3.6
+
+
+## how to open and overwrite file?
+```python
+# no instact mode can be used, so try seek() and truncate
+with open('path/to/file', 'r+') as fp:
+    data = fp.read()
+    new_data = func(data)
+    fp.seek(0)
+    fp.truncate()
+    fp.write(new_data)
+```

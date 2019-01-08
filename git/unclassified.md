@@ -115,6 +115,11 @@ git remote update origin --prune
 1. 推送全部tag： `git push [origin] --tag`
 2. 推送单个tag:  `git push [origin] tag_name`
 
+### git标签
+1. 新建不带注释的标签：git tag v1.0
+2. 新建带注释的标签： git tag -a v1.0 -m '新项目发布'
+3. 查看tag信息： git show v1.0
+
 ## git 拉代码的时候出现"segmentation fault"后导致代码没有拉取完全？
 window和linux对文件命名规则不一样时，有可能出现linux下提交的代码在window下无法通过校验进而导致出现该问题。  
 解决方案：
@@ -122,3 +127,52 @@ window和linux对文件命名规则不一样时，有可能出现linux下提交�
 2. window下进行浅拉取 `git clone --depth=1 repo_name.git foldername`
 
 * 如果后续还想拉取完整版本，可以使用`git fetch --unshallow`
+
+
+## 如何查看某段时间默认的提交记录？
+```
+git log --all --oneline --author="yangxuefei" --since="2018-7-1" --until="2018-12-30"
+```
+
+## 统计提交代码行数
+```
+git log --all --author="yangxuefei" --since=2018-01-01 --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs,
+loc }' -
+```
+
+## git 在收到指定分支上提交代码时如何触发jenkins任务？
+利用仓库中 ~/hooks/post-receive 钩子实现：
+```python
+#!/usr/bin/env python
+#coding: utf-8
+import sys
+import requests
+import fileinput
+
+JENKINS_HOOK = 'http://{JENKINS_USERNAME}:{JENKINS_TOKEN}@{JENKINS_HOST}/generic-webhook-trigger/invoke?token=feed_monitor'
+# 读取用户试图更新的所有引用
+for line in fileinput.input():
+    # print "pre-receive: Trying to push ref: %s" % lines
+    arr = line.split()
+    # 仅master更新时触发打包操作
+    try:
+        arr[2].index('master')
+    except ValueError:
+        continue
+    params = {
+        "before": arr[0],
+        "after": arr[1],
+        "ref": [2]
+    }
+    res = requests.post(JENKINS_HOOK, params)
+    try:
+        res = res.json()
+    except ValueError:
+        print 'invoke jenkins hook failed! CI wont be triggered'
+	print res.text
+	sys.exit()
+
+    ret = ','.join(res['data']['triggerResults'].keys())
+    ret = 'automate build triggered: %s' % (ret)
+    print ret.encode('utf-8')
+```

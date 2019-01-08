@@ -18,7 +18,7 @@ if __name__ == "__main__":
     # 测试:
     bart = Student('Bart', Gender.Male)
     if bart.gender == Gender.Male:
-        print(u'测试通过!')
+        print('测试通过!')
     else:
         print(u'测试失败!')
         

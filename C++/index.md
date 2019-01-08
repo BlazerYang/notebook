@@ -161,3 +161,19 @@ class Rectangle{
 意思为该函数是只读方法，不会改变类的数据成员。
 * 提高程序可读性
 * 企图修改数据成员时会直接抛出编译错误
+
+
+## enum
+枚举值都是常量，前一个值采用的显示声明，后面的值会使用依次加1的策略隐式声明
+```c++
+// point2d is 2, point2w is 3, point3d = 3, point3w = 4
+enum Points {point2d = 2, point2w,
+            point3d = 3, point3w}
+```
+
+## boost/shared_ptr
+shared_ptr不用手动去释放资源，它会智能地在合适的时候去自动释放
+[Boost智能指针——shared_ptr](https://www.cnblogs.com/TianFang/archive/2008/09/19/1294521.html)
+
+## spawn?
+本意是产卵，在c++中意思为启动多个进程

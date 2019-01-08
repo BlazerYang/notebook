@@ -95,3 +95,6 @@ docker exec -it a748c2c5dadb /bin/bash env | grep HOME
 ## docker 在Dockerfile中修改/etc/hosts/为何不生效？
 /etc/hosts文件并不是保存在容器的fs中，而是挂载在宿主机保存容器的目录里，而每次启动均会生成一个新的容器，所以中间层中对/etc/hosts的修改并不会生效。
 如要在容器启动命令中修改才可以
+
+
+## kubernetes的一个pod中包含多个镜像，某个镜像中启动的进程为何不包含在任一镜像中？

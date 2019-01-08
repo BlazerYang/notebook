@@ -124,3 +124,17 @@ server
     }
 }
 ```
+
+## 413 Request Entity Too Large
+解决方法：
+将`client_max_body_size 2m;`调大
+
+
+## nginx + php-fpm + s3 将上传文件限制到1G需要如何修改配置？
+1. nginx： `client_max_body_size 1g;`
+2. php:
+   1. `upload_max_filesize = 1G`
+   2. `post_max_size = 1G`
+   3. `max_execution_time = 0`, 可能受影响的参数，文件较大上传可能比较耗时
+   4. `max_input_time = -1`, 可能受影响的参数，文件较大上传可能比较耗时
+3. s3: `putObject`中的`body`使用文件句柄而不是文件内容，不然可能会超出php中memory_limit的限制

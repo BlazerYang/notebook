@@ -292,6 +292,31 @@ DSN是delivery status notification
 2. comment out `inet_protocol: all`
 3. add `inet_protocol: ipv4`
 
+### linux下sendmail、mail和postfix之间什么关系？
+* mail是邮件客户端，其将邮件投递给本地MTA，然后MTA（比如sendmail,postfix）负责将邮件投递至收件人
+* sendmail和postfix都是邮件服务器，真正收发邮件的就是这些服务
+[Difference between mailx and sendmail?](https://stackoverflow.com/questions/51731199/difference-between-mailx-and-sendmail)
+
+#### what is MTA?
+short of `Mail Transfer Agent`，邮件转发代理
+
+### 如何查看邮件队列？
+mailq
+
+### 如何发送队列中的邮件？
+`postqueue -f` or `postqueue flush`
+
+### postqueue: fatal: Cannot flush mail queue - mail system is down?
+
+
+### why mailq have lot of requests?
+
+
+### 如何清空mail队列？
+postsuper -d ALL
+
+### mail队列中提示450 too much mail怎么办？postfix会重发么？
+>said: 450 4.7.1 Error: too much mail from 10.145.28.114 (in reply to MAIL FROM command)
 
 ## 如何清理dnscache？
 service nscd reload
@@ -310,3 +335,7 @@ service nscd reload
 
 ## 如何统计文件下下所有文件的数量(包括子文件夹)？
 `ls -lR| grep "^-" | wc -l`
+
+
+## locale
+[Linux下LC_ALL=C的含义](https://blog.csdn.net/ict2014/article/details/23946471)

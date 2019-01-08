@@ -222,3 +222,14 @@ WHERE
 	TABLE_SCHEMA = '数据库名'
 AND TABLE_NAME = '数据表名';
 ```
+
+## mysql如何将blob转换为文本？
+`select CONVERT(thedata USING utf8) from attach_data where id = 34192`
+
+## mysql修改时区
+```SQL
+set time_zone = '+8:00', @@global.time_zone = '+8:00';
+select @@global.time_zone, @@session.time_zone, now();
+```
+
+## @@GLOBAL.ENFORCE_GTID_CONSISTENCY?

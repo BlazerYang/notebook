@@ -22,8 +22,11 @@ getconf LONG_BIT
 
 ## 上传大文件？
 修改`upload_max_filesize`  
-同时此值同时受限于`post_max_size`, 此值应大约upload_max_filesize
+同时此值同时受限于`post_max_size`, 此值应大于`upload_max_filesize`
 可能会受影响的变量`max_input_time`, `max_execution_time`
+
+## 大文件读取，报内存耗尽？
+可用内存上限定义在`memory_limit`中
 
 ## php 返回500错误，如何查看错误信息？
 1. `ps -ef | grep fpm`找到配置文件位置
@@ -131,3 +134,14 @@ VIA: 10.18.12.14, 10.173.180.142
 其中：
 * `USR2` 平滑重载所有worker进程并重新载入配置和二进制模块
 * 平滑重启： 旧进程在处理完当前请求后依次退出，并生成新的进程开始处理请求，对于无状态的服务来说，用户是无感知的
+
+
+## 为什么有时候从数据库里取出来的数据使用basename后结果不符合预期？
+```php
+$path = 'attachment/2018/12/20/20/27/05/商业化会议纪要汇总_5c1b6ef468525.zip';
+$filename = basename($path);
+
+// 预期: 商业化会议纪要汇总_5c1b6ef468525.zip
+// 实际: _5c1b6ef468525.zip
+var_dump($filename);
+```
