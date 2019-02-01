@@ -313,8 +313,6 @@ null
 ## 小结
 有了JSON Schema这个神器，接口测试的数据校验变得简单了不少，作为接口监控脚本的一部分，也很容易知道结果中哪部分出了问题。实在是居家旅行、测试开发，必备良药。
 
-如果本文对你有用，欢迎收藏点赞。点赞过10，后续会考虑再出一篇关于JSON Schema高级特性的介绍。
-
 ## 参考
 1. json schema: [http://json-schema.org](http://json-schema.org)
 2. Understanding Json Schema: [https://spacetelescope.github.io/understanding-json-schema/index.html](https://spacetelescope.github.io/understanding-json-schema/index.html)
