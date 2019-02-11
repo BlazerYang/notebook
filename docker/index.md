@@ -76,6 +76,7 @@ docker exec -it a748c2c5dadb /bin/bash env | grep HOME
 
 ### 如何启动mysql镜像？
 `docker run --name some-mysql -v /home/yangxuefei/var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d -p 3306:3306 mysql:5.6`
+`docker run -v E:/docker/volume/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d -p 3307:3306 mysql:5.6.42`
 
 * `-e`：用于设置容器中的环境变量，`MYSQL_ROOT_PASSWORD`用于设置用户密码， 如果不想使用密码可以使用配置免密`MYSQL_ALLOW_EMPTY_PASSWORD`
 
@@ -91,10 +92,15 @@ docker exec -it a748c2c5dadb /bin/bash env | grep HOME
 1. `docker ps -a`获取容器的id
 2. `docker commit {container id} /{namespace}/{name}:{tag}`
 
+### 如何清除所有启动的容器？
+`docker rm $(docker ps -qa)`
+
+### docker for window中电脑重启后重启容器失败
+错误信息：
+> docker restart Error starting userland proxy: Bind for 0.0.0.0:3307: unexpected error Permission denied
+
+指定端口映射的方式无法正常启动容器，把启动容器的方式从`-p 3307:3306`改为`-P`自动映射即可
 
 ## docker 在Dockerfile中修改/etc/hosts/为何不生效？
 /etc/hosts文件并不是保存在容器的fs中，而是挂载在宿主机保存容器的目录里，而每次启动均会生成一个新的容器，所以中间层中对/etc/hosts的修改并不会生效。
 如要在容器启动命令中修改才可以
-
-
-## kubernetes的一个pod中包含多个镜像，某个镜像中启动的进程为何不包含在任一镜像中？

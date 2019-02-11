@@ -211,6 +211,8 @@ INSERT INTO tb_field_visibility (
 
 ## mysql查询单个字段大小的限额
 `show variables like '%max_allowed_packet%'`
+修改该限额：`set global max_allowed_packet = 16777216`
+修改完毕后需要重启才能生效
 
 ## mysql 查询数据表的大小
 ```sql
@@ -233,3 +235,15 @@ select @@global.time_zone, @@session.time_zone, now();
 ```
 
 ## @@GLOBAL.ENFORCE_GTID_CONSISTENCY?
+
+## DDL?
+Data Definition Language, 数据库模式定义语言
+
+## 如何转换编码？
+```sql
+-- 假设有表字段的编码为gbk，那么可用如下语句将其转换为utf8
+ALTER TABLE table_name CONVERT TO CHARATER SET utf8;
+-- 然后使用如下语句检查转换是否出现了乱码
+select hex(col) as hex_col, col from table_name where col is not null having hex_col like '%FFFD%';
+```
+因为utf8会将无法识别的编码替换为\ufffd，所以其他编码向utf8转换并不一定是无损的

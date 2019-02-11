@@ -3,3 +3,4 @@ node_modules
 .vscode
 *.exe
 docker/example/data.json
+*.private*
