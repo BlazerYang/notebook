@@ -247,3 +247,9 @@ ALTER TABLE table_name CONVERT TO CHARATER SET utf8;
 select hex(col) as hex_col, col from table_name where col is not null having hex_col like '%FFFD%';
 ```
 因为utf8会将无法识别的编码替换为\ufffd，所以其他编码向utf8转换并不一定是无损的
+
+## 如何区分大小写查询？
+因为数据库一般建表的时候都会选择general_ci, 意味不区分大小写，此时改表不太现实，可以通过二进制比较的方式来进行区分大小写查询(下方binary)
+```sql
+select * from tb_manage_project where priority like binary 'p%';
+```

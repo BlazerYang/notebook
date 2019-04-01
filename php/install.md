@@ -27,3 +27,33 @@ yum list all | grep -i NAME
 ln -s /usr/local/php7/bin/php /usr/local/bin/php7
 ln -s /usr/local/php7/bin/phpize /usr/local/bin/phpize7
 ```
+
+## 配置xdebug
+1. 安装xdebug插件
+2. 在php.ini中配置插件位置并启用插件
+3. vscode安装PHP debug插件，在debug页中点击绿色三角完成配置后开启监听,webapp通过监听9000 端口获取debug信息
+4. chrome安装xdebug helper，并开启debug模式（省的自己在请求cookie中加入debug标识）
+5. 可以尽情地打断点调试了
+
+### 利用xdebug进行性能分析
+1. 设置 xdebug.profiler_enable_trigger = on
+2. cookie\get\post参数中带上XDEBUG_PROFILE键，性能文件会记录在xdebug.profiler_output_dir中（这里也可以用chrome xdebug helper）
+3. 使用webgrind或者kcachegrind打开文件进行分析
+
+### xdebug trace. chrome xdebug helper有个trace选项，是干什么用的？
+通过传入trigger key可以记录请求的trace信息
+1. php.ini中设置
+    1. xdebug.trace_enable_trigger = on
+    2. xdebug.trace_output_dir = '/tmp'
+    3. xdebug.trace_output_name=trace.%R.%u
+2. 请求的cookie、get或post参数中增加键 XDEBUG_TRACE即可触发记录trace
+3. 对应的分析工具？
+
+### incl.
+inclusive cost, 
+self cost, 
+
+
+### xdebug调试的原理
+BGDp协议
+

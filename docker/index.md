@@ -104,3 +104,19 @@ docker exec -it a748c2c5dadb /bin/bash env | grep HOME
 ## docker 在Dockerfile中修改/etc/hosts/为何不生效？
 /etc/hosts文件并不是保存在容器的fs中，而是挂载在宿主机保存容器的目录里，而每次启动均会生成一个新的容器，所以中间层中对/etc/hosts的修改并不会生效。
 如要在容器启动命令中修改才可以
+
+## docker 查看当前login的仓库？
+docker login成功后，会在`~/.docker/config.json`中记录登陆过的仓库地址
+
+## docker desktop for windows
+
+### windows docker 和linux docker的区别？
+windows docker只能跑windows的程序
+linux docker只能跑linux的程序
+
+### shared drives "a firewall is blocking file sharing between windows and the containers"?
+csico annyconnect 连接时，会阻止本地网络互连, 按如下步骤处理：
+1. 在settings > preference > 勾选 _Allow local (LAN) access when using VPN_
+2. 断开vpn后重新连接
+3. 此时共享硬盘即可成功
+>[Settings to Windows Firewall to allow Docker for Windows to share drive](https://stackoverflow.com/questions/42203488/settings-to-windows-firewall-to-allow-docker-for-windows-to-share-drive/43904051)

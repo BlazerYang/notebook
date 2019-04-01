@@ -289,8 +289,23 @@ DSN是delivery status notification
 
 ### postfix: fatal: parameter inet_interfaces: no local interface found for ::1 如何处理？
 1. open `/etc/postfix/main.cf`
-2. comment out `inet_protocol: all`
-3. add `inet_protocol: ipv4`
+2. 法1：
+    1. 修改 `inet_interfaces: localhost`
+    2. 修改 `inet_protocol: ipv4`
+3. 法2：
+    1. 修改 `inet_interfaces: all` 
+    1. 修改 `inet_protocol: all` 
+
+
+### 如何查看机器是否支持ipv6？
+1. 
+
+
+### You have mail in /var/mail/root， 如何查看邮件？
+`cat /var/mail/root`
+
+### 如何发送邮件？
+`mail -s 'subject' xxx@yyy.com`
 
 ### linux下sendmail、mail和postfix之间什么关系？
 * mail是邮件客户端，其将邮件投递给本地MTA，然后MTA（比如sendmail,postfix）负责将邮件投递至收件人

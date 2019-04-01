@@ -19,3 +19,11 @@
 1. `sudo -u jenkins -H bash && cd ~`: 切换至jenkins用户，并进入home目录
 2. `ssh-keygen -t rsa`: 如果`~/.ssh/`中没有`id_rsa.pub`文件，那么就生成一个
 3. 将`id_rsa.pub`中的内容粘贴指git服务器的`authorized_keys`中
+
+## Allure
+
+### post action中选择中allure之后，系统会卡死
+推测是运行结果大多，或者不连续导致任务卡死，总之将`%JENKINS_HOME%/workspace/%JOB_NAME%/allure-results/`清空之后任务即可恢复正常
+
+* 续： 清理之后一段时间还是会卡死，检查发现workspace/{JOB_NAME}/allure-results中内容还是过多
+* 解决方式：在post action中增加“Delete workspace when build is done”清除历史运行数据和报告。因为处理好的报告是存储在jobs/{JOB_NAME}/{INDEX}/allure中的，所以报告不会清除

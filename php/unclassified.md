@@ -145,3 +145,6 @@ $filename = basename($path);
 // 实际: _5c1b6ef468525.zip
 var_dump($filename);
 ```
+
+## 中文json_encode时被转为unicode码
+使用json_encode('中文',JSON_UNESCAPED_UNICODE)
