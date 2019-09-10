@@ -148,3 +148,23 @@ var_dump($filename);
 
 ## 中文json_encode时被转为unicode码
 使用json_encode('中文',JSON_UNESCAPED_UNICODE)
+
+**TIPS** register_shutdown_function中不能使用相对路径，只能用绝对路径，因为脚本运行结束后，当前路径已经变为服务器根目录
+>If you want to do something with files in function, that registered in register_shutdown_function(), use ABSOLUTE paths to files instead of relative. Because when script processing is complete current working directory chages to ServerRoot (see httpd.conf)
+[see for more](https://www.php.net/manual/zh/function.register-shutdown-function.php#59300)
+
+## string使用下标获取值
+```php
+<?php
+$a = '123';
+$b = $a[0];
+$c = $a['tp_count'];
+$d = $a[false];
+$e = $a[null];
+echo '$a='.$a."\n";
+echo '$b='.$b."\n";
+echo '$c='.$c."\n";
+echo '$d='.$d."\n";
+echo '$e='.$e."\n";
+```
+其中使用非法的下标会`Warning: Illegal string offset 'tp_count'`,然后返回字符串第一个字符，false和null会出现隐式类型转换为0

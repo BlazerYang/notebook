@@ -138,3 +138,6 @@ server
    3. `max_execution_time = 0`, 可能受影响的参数，文件较大上传可能比较耗时
    4. `max_input_time = -1`, 可能受影响的参数，文件较大上传可能比较耗时
 3. s3: `putObject`中的`body`使用文件句柄而不是文件内容，不然可能会超出php中memory_limit的限制
+
+## fastcgi_param PHP_VALUE
+可以修改php参数

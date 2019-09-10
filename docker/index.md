@@ -29,6 +29,9 @@
 
 * 虚悬镜像(dangling image)  
 因为官方镜像维护发布新版本之后，已有的 名称:标签 被占用，原镜像的名称或标签会出现为`none`的情况，这种镜像称为虚悬镜像
+    * 如何删除虚悬镜像？
+        1. 查看： `docker images -f 'dangling=true'`
+        2. 删除： `docker rmi $(docker images -f 'dangling=true' -q)`
 
 * 查看当前正在运行的容器  
   `docker ps`
@@ -120,3 +123,11 @@ csico annyconnect 连接时，会阻止本地网络互连, 按如下步骤处理
 2. 断开vpn后重新连接
 3. 此时共享硬盘即可成功
 >[Settings to Windows Firewall to allow Docker for Windows to share drive](https://stackoverflow.com/questions/42203488/settings-to-windows-firewall-to-allow-docker-for-windows-to-share-drive/43904051)
+
+
+## 如何查看容器的资源占用
+docker stats
+后面可以跟上容器id或者名字查看指定的容器
+
+## 如何修改容器的时区？
+docker启动时加上`-e TZ=Asia/Shanghai`

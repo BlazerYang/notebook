@@ -253,3 +253,66 @@ select hex(col) as hex_col, col from table_name where col is not null having hex
 ```sql
 select * from tb_manage_project where priority like binary 'p%';
 ```
+
+## mysql如何查询所有的字段是否出现了某字符串？
+```sql
+-- 获取查询库下所有的表名
+select TABLE_NAME from information_schema.TABLES where TABLE_SCHEMA = 'DB_NAME'
+
+-- 查询所有表下面的字段名
+select * from information_schema.COLUMNS where TABLE_SCHEMA = 'DB_NAME' AND TABLE_NAME = 'TABLE_NAME'
+
+-- 查询字段是否存在
+
+```
+
+
+## MYSQL VIEW是什么？
+view是虚拟存在的表，是一个逻辑表，本身不包含数据。使用select语句保存在数据词典中
+
+## 1030 got error 28 from storage engine
+一般是数据库所在硬盘写满或临时目录写满导致，解决方案
+1. 清空/tmp目录，或者修改my.cnf中的tmpdir,指向一个更大的空间
+2. 清理磁盘空间
+
+## ERROR 2013 (HY000): Lost connection to MySQL server at 'waiting for initial communication packet', system error: 0 "Internal error/check (Not system error)")
+
+## mysql 如何循环更新表？
+可以使用存储过程，关键字cursor，也就是使用游标获取数据，然后循环对每条记录进行处理，示例代码如下：
+```SQL
+DROP PROCEDURE IF EXISTS update_field_prev;
+CREATE PROCEDURE update_field_prev () BEGIN DECLARE p INT;
+DECLARE n INT;
+DECLARE done boolean DEFAULT FALSE;
+DECLARE cur CURSOR FOR
+SELECT
+  prev,
+  next
+FROM
+  tb_field_visibility
+WHERE
+  name = 'task'
+  AND category = 'manage_project'
+  AND prev != 0;
+DECLARE CONTINUE HANDLER FOR NOT found
+SET
+  done = TRUE;
+OPEN cur;
+field_loop: LOOP FETCH cur INTO p,
+  n;
+IF done THEN LEAVE field_loop;
+END IF;
+update
+  tb_field_visibility
+set
+  next = n
+where
+  id = p;
+END LOOP;
+CLOSE cur;
+END;
+
+CALL update_field_prev();
+```
+注意 fetch获取值的变量不得与表字段名相同， 否则获取不到值
+while与repeat循环会先循环再判定，导致多进行一次计算

@@ -120,6 +120,9 @@ git remote update origin --prune
 2. 新建带注释的标签： git tag -a v1.0 -m '新项目发布'
 3. 查看tag信息： git show v1.0
 
+### 如果查看当前分支下最新的一个tag？
+`git describe`, 找到距离HEAD最近的一个tag
+
 ## git 拉代码的时候出现"segmentation fault"后导致代码没有拉取完全？
 window和linux对文件命名规则不一样时，有可能出现linux下提交的代码在window下无法通过校验进而导致出现该问题。  
 解决方案：
@@ -176,3 +179,5 @@ for line in fileinput.input():
     ret = 'automate build triggered: %s' % (ret)
     print ret.encode('utf-8')
 ```
+
+

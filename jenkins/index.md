@@ -25,3 +25,15 @@ Permission you need to have (but didn\'t): hudson.model.Hudson.Read
 
 解决方案：
 在 jenkins -> 系统管理 -> 全局安全配置 -> 安全矩阵 中授予匿名用户读权限，则jenkins可以正确跳转至首页而不提示403
+
+## html report无法加载css/js
+在 系统管理 -> 脚本命令行 中输入并执行如下语句，关闭CSP
+```groovy
+System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+```
+注意：该设置重启后会失效
+
+
+## workspace和jobs分别是做什么用的？
+workspace是jenkins任务运行的工作目录，一切插件、脚本中的相对目录均以此为根目录
+jobs存储的是jenkins任务每次运行的结果

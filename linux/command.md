@@ -333,6 +333,16 @@ postsuper -d ALL
 ### mail队列中提示450 too much mail怎么办？postfix会重发么？
 >said: 450 4.7.1 Error: too much mail from 10.145.28.114 (in reply to MAIL FROM command)
 
+### sendmail发送的邮件g-qtest无法收到？
+背景：
+1. 邮件服务器使用Microsoft exchange
+2. g-qtest包含若干子邮件组，比如g-webtest-xxl，然后其中才是用户
+3. 直接向g-qtest发送邮件，子邮件组中的用户无法收到邮件
+4. 向不包含子邮件组的邮件组发送的邮件可被其中用户收到
+
+解决：
+经与邮件服务运维人员确认，该邮件组默认开启不允许接收外部用户的邮件，关闭后恢复正常
+
 ## 如何清理dnscache？
 service nscd reload
 * windows下：ipconfig /flushdns
@@ -354,3 +364,19 @@ service nscd reload
 
 ## locale
 [Linux下LC_ALL=C的含义](https://blog.csdn.net/ict2014/article/details/23946471)
+
+## 如何截取字符串的前8位
+```bash
+a=1234567890
+b=`expr substr $a 1 8`
+```
+
+## 获取获取格式化的日期
+可以使用date方法，使用`man date`连接更多
+比如我们要生成20190628112533格式的日期可以用如下语句
+```bash
+echo `date '+%Y%m%d%H%M%S'`
+```
+
+## bash 和 sh的区别？
+linux shell有着非常多不同的版本，
