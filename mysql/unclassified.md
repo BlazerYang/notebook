@@ -316,3 +316,19 @@ CALL update_field_prev();
 ```
 注意 fetch获取值的变量不得与表字段名相同， 否则获取不到值
 while与repeat循环会先循环再判定，导致多进行一次计算
+
+
+## 写操作提示“incorrect int value”
+是数据库切换或重启后，sql_mode变量默认恢复为“STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION”。
+
+其中STRICT_TRANS_TABLES模式下会严格检查写入的变量值是否正确，错误的话会抛出错误并回滚；而不开启该模式时，仅会提示warning
+
+暂时解决方式
+```sql
+set sql_mode="NO_ENGINE_SUBSTITUTION"
+```
+缺点：数据库重启后又会恢复默认，在my.cnf里面改可永久生效
+
+最好的方式还是代码严格遵守严格方式
+
+[mysql说明文档](https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sql-mode-strict)
